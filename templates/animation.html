@@ -3,26 +3,25 @@
 
 
 {% block content %}
-<div class="split left">
-	<h2 align="center">Enter Text or Use Mic</h2>
-	<br>
-		<form action="" method="post" align="left">
+<div class="split left panel-left">
+    <h2 align="left">Enter Text or Use Mic</h2>
+    <div class="input-row">
+        <form action="" method="post">
 		{% csrf_token %}
-					<input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
-					<button type="button" name="button" class="mic" onclick="record()"><img src="{% static 'mic3.png' %}" height="32px" width="38px" /></button>
-		  			&nbsp&nbsp&nbsp&nbsp
-		  			<input type="submit" name="submit" class="submit">
+            <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
+            <button type="button" name="button" class="mic" onclick="record()"><img src="{% static 'mic3.png' %}" height="32px" width="38px" /></button>
+            <input type="submit" name="submit" class="submit" value="Submit">
 
-		</form>
-		<br>
-		<table cellspacing="20px">
+        </form>
+    </div>
+        <table cellspacing="20px">
 			<tr>
-				<td class="td">The text that you entered is:</td>
-				<td class="td">{{ text }}</td>
+                <td class="td label">You said:</td>
+                <td class="td value">{{ text }}</td>
 			</tr>
 			<tr>
-				<td class="td">Key words in sentence:</td>
-				<td class="td">
+                <td class="td label">Keywords detected:</td>
+                <td class="td value">
 				<ul class="td" id="list" align="center">
   					{% for word in words %}
     				<li id="{{ i }}" style="margin-right: 8px">{{ word }}</li>
@@ -31,17 +30,11 @@
 			</td>
 		</tr>
 	</table></div>
-  <div class="split right">
-  <h2 align="center">Sign Language Animation</h2>
+  <div class="split right" style="text-align:left; gap: 30px;">
+  <h2 align="left">Sign Language Animation</h2>
 
-	<div style="text-align:center">	&nbsp&nbsp
-  	<button class="submit" onclick="playPause()">Play/Pause</button>
-  	<!--  LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN ASHISH
-
-  	<button onclick="makeBig()">Big</button>
-  	<button onclick="makeSmall()">Small</button>
-  	<button onclick="makeNormal()">Normal</button>-->
-
+    <div>
+        <button class="submit" onclick="playPause()">Play/Pause</button>
 
   	<video id="videoPlayer" width="600" height="350"  preload="auto" autoplay>
     	<source src="" type="video/mp4">
@@ -49,6 +42,130 @@
   	</video>
   	</div></div>
 
+<style>
+	
+    /* Layout tweaks for converter - positions only (no color changes) */
+    .panel-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* center content horizontally */
+        justify-content: flex-start; /* align content to top to prevent overflow */
+        gap: 10px;
+        padding: 10px 20px; /* reduced top padding to prevent overflow */
+        overflow-y: auto; /* Allow vertical scrolling within the panel */
+        overflow-x: hidden; /* Prevent horizontal overflow */
+        max-height: calc(100vh - 80px); /* reduced height to prevent overflow */
+        text-align: center; /* Center text content */
+        margin-left: -170px; /* move panel 170px to the left */
+    }
+
+    .input-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* keep inputs on the left */
+        gap: 12px;
+        margin: 8px 0 6px;
+    }
+
+    /* Space between input, mic and submit (make the form a flex row) */
+    .panel-left form {
+        display: flex;
+        align-items: center;
+        gap: 14px; /* spacing between text input, mic, and submit */
+        margin: 0;
+    }
+
+    /* Input box */
+    #speechToText {
+        border-radius: 8px;
+        padding: 4px 8px;    /* smaller padding */
+        border: 1px solid #ccc;
+        outline: none;
+        width: 260px;   
+        margin-left: 0; 
+        color: black !important;  /* Make text black */
+    }
+    /* Mic button */
+    .mic {
+        border-radius: 8px;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        margin-left: 0; 
+        cursor: pointer;
+    }
+
+    /* Submit button */
+    .submit {
+        border-radius: 8px;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    /* Play/Pause button */
+    button[onclick="playPause()"] {
+        border-radius: 8px;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    /* Right panel alignment: center everything */
+    .split.right {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* center content horizontally */
+        justify-content: flex-start; /* align content to top to match left panel */
+        text-align: center; /* center text content */
+        padding: 10px 20px; /* same padding as left panel */
+        gap: 10px; /* same gap as left panel for consistent line spacing */
+        margin-top: 10px; /* move panel 10px down */
+    }
+    
+    .split.right h2 { margin: 0; }
+    .split.right > div { display: flex; flex-direction: column; align-items: center; }
+    .split.right > div > .submit { margin-bottom: 0; }
+    #videoPlayer { display: block; margin-top: 0; }
+    
+    /* Ensure split panels are properly contained */
+    .split.left {
+        overflow: hidden; /* Prevent any overflow from extending beyond panel */
+        box-sizing: border-box; /* Include padding and border in width calculation */
+    }
+    
+    .split.right {
+        overflow: hidden; /* Prevent any overflow from extending beyond panel */
+        box-sizing: border-box; /* Include padding and border in width calculation */
+    }
+    
+    /* Keywords detected list scrollbar */
+    #list {
+        max-height: 200px; /* Limit height of keywords list */
+        overflow-y: auto; /* Enable vertical scrolling */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        padding: 10px; /* Add padding inside the scrollable area */
+        margin-top: 10px; /* Add margin from the label */
+    }
+    
+    /* Style the scrollbar for the keywords list */
+    #list::-webkit-scrollbar {
+        width: 8px; /* Width of the scrollbar */
+    }
+    
+    #list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1); /* Track background */
+        border-radius: 4px;
+    }
+    
+    #list::-webkit-scrollbar-thumb {
+        background: #6ab0ff; /* Scrollbar thumb color */
+        border-radius: 4px;
+    }
+    
+    #list::-webkit-scrollbar-thumb:hover {
+        background: #8fd0ff; /* Hover color */
+    }
+</style>
 
 <script>
 	//webkitSpeechRecognition api for speech to text conversion
@@ -77,22 +194,45 @@
 
 		function videoPlay(videoNum)
 		{
-			document.getElementById("list").getElementsByTagName("li")[videoNum].style.color = "#09edc7";
-			document.getElementById("list").getElementsByTagName("li")[videoNum].style.fontSize = "xx-large";
-			document.getElementById("videoPlayer").setAttribute("src", videoSource[videoNum]);
-	    	document.getElementById("videoPlayer").load();
-	    	document.getElementById("videoPlayer").play();
-
+            var currentLi = document.getElementById("list").getElementsByTagName("li")[videoNum];
+            var videoPlayer = document.getElementById("videoPlayer");
+            
+            currentLi.style.color = "var(--text-highlight)";
+			currentLi.style.fontSize = "xx-large";
+			
+			// Auto-scroll to the current item
+			currentLi.scrollIntoView({ 
+				behavior: 'smooth', 
+				block: 'center',
+				inline: 'nearest'
+			});
+			
+			// Quick transition without gaps
+			videoPlayer.style.transition = 'opacity 0.1s ease-in-out';
+			videoPlayer.style.opacity = '0.9';
+			
+			// Very short delay to minimize gaps
+			setTimeout(function() {
+				videoPlayer.setAttribute("src", videoSource[videoNum]);
+				videoPlayer.load();
+				
+				// Quick fade back in
+				videoPlayer.addEventListener('canplay', function() {
+					videoPlayer.play();
+					videoPlayer.style.opacity = '1';
+					videoPlayer.removeEventListener('canplay', arguments.callee);
+				}, { once: true });
+			}, 50);
 		}
 		document.getElementById('videoPlayer').addEventListener('ended', myHandler, false);
-		document.getElementById("list").getElementsByTagName("li")[0].style.color = "#09edc7";
+        document.getElementById("list").getElementsByTagName("li")[0].style.color = "var(--text-highlight)";
 		document.getElementById("list").getElementsByTagName("li")[0].style.fontSize = "xx-large";
 
 		videoPlay(0); // play the video
 
 		function myHandler()
 		{
-	 		document.getElementById("list").getElementsByTagName("li")[i].style.color = "#feda6a";
+            document.getElementById("list").getElementsByTagName("li")[i].style.color = "var(--text-body)";
 			document.getElementById("list").getElementsByTagName("li")[i].style.fontSize = "20px";
 			i++;
 	    	if (i == videoCount)
