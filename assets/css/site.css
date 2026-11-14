@@ -1,0 +1,226 @@
+/*
+  Site styles inspired by Sophrion (Future Within): https://sphorion.netlify.app/
+  Theme: dark surface, golden accent, clean typography, soft cards, subtle motion
+*/
+
+:root {
+  /* Bluish transparent glass theme */
+  --color-bg: rgba(10, 18, 30, 0.0);
+  --color-surface: rgba(20, 32, 48, 0.35);
+  --color-surface-2: rgba(26, 42, 64, 0.45);
+  --color-text: #e7f0ff;
+  --color-text-muted: #b7c7dd;
+  --color-accent: #6ab0ff;
+  --color-accent-2: #8fd0ff;
+  --color-ink: #1f2f47;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --shadow-sm: 0 4px 10px rgba(0,0,0,.25);
+  --shadow-md: 0 10px 30px rgba(0,0,0,.35);
+  --shadow-lg: 0 18px 50px rgba(0,0,0,.45);
+
+  --container-w: 1200px;
+
+  /* Accessible text palette */
+  --text-heading: #EAF2F5;
+  --text-subheading: #CFE2E8;
+  --text-body: #E2ECEF;
+  --text-label: #BFD0D6;
+  --text-highlight: #56CCF2;
+  --text-button: #0B1A24;
+}
+
+/* Base */
+html, body {
+  height: 100%;
+}
+
+body {
+  /* Transparent background to let page/parent show through */
+  background: var(--color-bg);
+  color: var(--text-body);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--text-highlight); text-decoration: none; }
+a:hover { color: var(--color-accent-2); }
+
+.wrapper {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+}
+
+/* Header */
+.header-container {
+  background: linear-gradient(120deg, rgba(28, 45, 70, 0.45) 0%, rgba(28, 45, 70, 0.25) 100%);
+  border: 1px solid rgba(140, 190, 255, .18);
+  box-shadow: 0 10px 30px rgba(10, 20, 40, .35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header-title {
+  color: var(--text-heading) !important;
+  letter-spacing: .6px;
+}
+
+h1 { color: var(--text-heading); }
+h2, h3 { color: var(--text-subheading); }
+p, li, input, textarea, select { color: var(--text-body); }
+small, .muted { color: var(--color-text-muted); }
+
+/* Sidebar / Navigation */
+#nav {
+  background: linear-gradient(180deg, rgba(22, 36, 56, 0.55), rgba(20, 34, 52, 0.35));
+  border-right: 1px solid rgba(140, 190, 255, .18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#nav .li a {
+  color: var(--text-body);
+}
+
+#nav .li a:hover {
+  background: #141921;
+  color: var(--color-accent);
+}
+
+.hamburger {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+  box-shadow: var(--shadow-sm);
+}
+
+.hamburger span {
+  background: #1f2631;
+}
+
+.hamburger:hover { transform: translateY(-1px); }
+
+.overlay { background: rgba(8, 16, 28, .45); }
+
+/* Cards */
+.card {
+  background: radial-gradient(100% 100% at 50% 0%, var(--color-surface) 0%, var(--color-surface-2) 100%);
+  border: 1px solid rgba(140, 190, 255, .18);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 34px rgba(10, 20, 40, .35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); transition: all .25s ease; }
+
+/* Buttons */
+.btn, .form-style button, .submit, .mic {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+  color: var(--text-button) !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  font-weight: 700 !important;
+  letter-spacing: .2px;
+  box-shadow: 0 8px 20px rgba(100,160,240,.25);
+  transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.btn:hover, .form-style button:hover, .submit:hover, .mic:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(100,160,240,.35);
+  filter: saturate(1.05);
+}
+
+/* Inputs & Forms */
+.form-style,
+.site-form {
+  background: linear-gradient(180deg, rgba(40,70,110,.18), rgba(40,70,110,.08));
+  border: 1px solid rgba(140, 190, 255, .18);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.form-style input[type="text"],
+.form-style input[type="password"],
+.form-style input[type="email"],
+.form-style input[type="search"],
+.form-style textarea,
+.form-style select {
+  background: rgba(10, 18, 30, 0.35) !important;
+  border: 1px solid rgba(140, 190, 255, .18) !important;
+  color: var(--color-text) !important;
+  border-radius: 12px;
+}
+
+.form-style input:focus,
+.form-style textarea:focus,
+.form-style select:focus {
+  outline: none;
+  border-color: rgba(120, 180, 255, .75) !important;
+  box-shadow: 0 0 0 4px rgba(120, 180, 255, .18) !important;
+}
+
+.form-style h1, .form-style a { color: var(--text-subheading) !important; }
+.site-form span, label { color: var(--text-label) !important; }
+
+.errorlist { color: #ff7b7b !important; }
+
+/* Typography helpers */
+.muted { color: var(--color-text-muted); }
+.accent { color: var(--color-accent); }
+
+/* Media */
+video, img { border-radius: var(--radius-md); }
+
+/* Footer */
+.footer {
+  border-top: 1px solid rgba(255,255,255,.06);
+  color: var(--color-text-muted);
+}
+
+/* Utilities */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .wrapper { padding: 16px 14px 40px; }
+  #nav { width: 88vw; }
+}
+
+/* Animated glass background */
+.glass-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 700px at -10% -10%, rgba(86, 140, 220, .22), transparent 62%),
+    radial-gradient(1000px 600px at 110% 0%, rgba(120, 180, 255, .20), transparent 58%),
+    radial-gradient(900px 520px at 50% 120%, rgba(36, 78, 150, .22), transparent 64%),
+    linear-gradient(180deg, rgba(6, 14, 26, .70), rgba(6, 14, 26, .48));
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  filter: saturate(1.06);
+  animation: bgFloat 20s ease-in-out infinite alternate;
+}
+
+@keyframes bgFloat {
+  0% { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(0,-10px,0) scale(1.02); }
+}
+
+
